@@ -32,9 +32,21 @@
         android:id="@+id/mainActivityLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
+        android:layout_below="@+id/mainActivityTagline"
+        android:layout_alignParentBottom="false"
+        android:layout_marginTop="150dp"
         android:background="@color/colorButton"
-        android:text="Button"
-        android:textColor="@color/colorWhite" />
+        android:text="Login"
+        android:textColor="@color/colorWhite"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/mainActivitySignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainActivityLogin"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorWhite"
+        android:text="Sign Up"
+        android:textColor="@color/colorButton" />
 </RelativeLayout>
