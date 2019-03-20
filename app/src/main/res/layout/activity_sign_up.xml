@@ -1,9 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".signUpActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/signUpToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/signUpToolbar"
+        android:layout_marginTop="0dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/signUpTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:text="@string/please_enter_your_phone_number_to_continue"
+                android:textColor="@color/colorAccent"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/signUpSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/signUpInputLayoutPhone"
+                android:layout_marginTop="50dp"
+                android:background="@color/colorAccent"
+                android:text="@string/submit"
+                android:textColor="@color/colorWhite"
+                android:visibility="visible" />
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/signUpCCP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="200dp"
+                app:ccpDialog_textColor="@color/colorAccent"
+                app:ccp_areaCodeDetectedCountry="true"
+                app:ccp_arrowColor="@color/colorAccent"
+                app:ccp_arrowSize="20dp"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_autoDetectLanguage="true"
+                app:ccp_autoFormatNumber="true"
+                app:ccp_clickable="true"
+                app:ccp_contentColor="@color/colorAccent"
+                app:ccp_countryPreference="IN"
+                app:ccp_defaultLanguage="ENGLISH"
+                app:ccp_defaultNameCode="IN"
+                app:ccp_showArrow="true"
+                app:ccp_showFlag="true"
+                app:ccp_showFullName="false"
+                app:ccp_showNameCode="false"
+                app:ccp_showPhoneCode="true"
+                app:ccp_textGravity="CENTER"
+                app:ccp_textSize="20sp">
+
+            </com.hbb20.CountryCodePicker>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/signUpInputLayoutPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_alignTop="@+id/signUpCCP"
+                android:layout_marginTop="-10dp"
+                android:layout_toEndOf="@+id/signUpCCP"
+                android:layout_toRightOf="@+id/signUpCCP"
+                android:paddingLeft="5dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/signUpEditTextPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/signUpCCP"
+                    android:layout_toRightOf="@+id/signUpCCP"
+                    android:hint="@string/phone"
+                    android:inputType="number"
+                    android:textColor="@color/colorAccent" />
+
+            </android.support.design.widget.TextInputLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
