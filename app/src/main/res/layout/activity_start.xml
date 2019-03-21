@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".startActivity">
+    <TextView
+        android:id="@+id/startActivityTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:text="Pineco"
+        android:textColor="@color/colorWhite"
+        android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/startActivityTagline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startActivityTitle"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Fresh fruits at your doorstep!"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/startActivityLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startActivityTagline"
+        android:layout_alignParentBottom="false"
+        android:layout_marginTop="150dp"
+        android:background="@color/colorButton"
+        android:text="Login"
+        android:textColor="@color/colorWhite"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/startActivitySignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startActivityLogin"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorWhite"
+        android:text="Sign Up"
+        android:textColor="@color/colorButton" />
+
+</RelativeLayout>

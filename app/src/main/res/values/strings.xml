@@ -3,4 +3,10 @@
     <string name="phone">Phone</string>
     <string name="please_enter_your_phone_number_to_continue">Please enter your Phone Number to Continue</string>
     <string name="submit">Submit</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="please_enter_your_details_to_continue">Please enter your details to Continue</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
 </resources>

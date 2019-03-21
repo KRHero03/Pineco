@@ -3,37 +3,35 @@ package com.kr.pineco;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button mainActivityLogin,mainActivitySignUp;
+
+    FirebaseAuth mAuth;
+    FirebaseUser currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mainActivityLogin=findViewById(R.id.mainActivityLogin);
-        mainActivitySignUp=findViewById(R.id.mainActivitySignUp);
+        mAuth=FirebaseAuth.getInstance();
+        currentUser= mAuth.getCurrentUser();
 
-        mainActivityLogin.setOnClickListener(new View.OnClickListener(){
+        if(currentUser==null || !currentUser.isEmailVerified()){
+           sendToStart();
+        }else{
 
-            @Override
-            public void onClick(View view) {
+        }
 
-            }
-        });
+    }
 
-        mainActivitySignUp.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                Intent signUpActivityIntent=new Intent(MainActivity.this,signUpActivity.class);
-                startActivity(signUpActivityIntent);
-            }
-        });
-
+    private void sendToStart(){
+        Intent startActivityIntent=new Intent(MainActivity.this,startActivity.class);
+        startActivity(startActivityIntent);
+        finish();
     }
 
 
