@@ -2,6 +2,7 @@ package com.kr.pineco;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,6 +12,11 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -60,7 +66,27 @@ public class MainActivity extends AppCompatActivity {
         if(currentUser==null || !currentUser.isEmailVerified()){
            sendToStart();
         }else{
+            DatabaseReference accessCodeRef= FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid()).child("AccessCode");
 
+            accessCodeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String accessCode=dataSnapshot.getValue().toString();
+                    switch(accessCode){
+                        case "0":
+                            Intent introActivityIntent=new Intent(MainActivity.this,introActivity.class);
+                            startActivity(introActivityIntent);
+                            break;
+                        case "1":
+                            break;
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
 
 

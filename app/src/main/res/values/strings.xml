@@ -13,4 +13,6 @@
     <string name="login">Login</string>
     <string name="fresh_fruits_at_your_doorstep">Fresh fruits at your doorstep!</string>
     <string name="sign_out">Sign Out</string>
+    <string name="making_sure_you_are_ready_to_go">Making sure you are Ready to go!</string>
+    <string name="address">Address</string>
 </resources>

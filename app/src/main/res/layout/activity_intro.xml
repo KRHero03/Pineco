@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".introActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/introActivityToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <ScrollView
+        android:id="@+id/introActivityScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/introActivityRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/introActivityTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:gravity="center"
+                android:text="@string/making_sure_you_are_ready_to_go"
+                android:textColor="@color/colorAccent"
+                android:textSize="24sp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/introActivityUsernameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/introActivityTextView"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="10dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/introActivityUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/username"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/colorAccent" />
+            </android.support.design.widget.TextInputLayout>
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/introActivityCCP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/introActivityUsernameLayout"
+                android:layout_marginTop="60dp"
+                android:paddingLeft="10dp"
+                app:ccpDialog_textColor="@color/colorAccent"
+                app:ccp_areaCodeDetectedCountry="true"
+                app:ccp_arrowColor="@color/colorAccent"
+                app:ccp_arrowSize="20dp"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_autoDetectLanguage="true"
+                app:ccp_autoFormatNumber="true"
+                app:ccp_clickable="true"
+                app:ccp_contentColor="@color/colorAccent"
+                app:ccp_countryPreference="IN"
+                app:ccp_defaultLanguage="ENGLISH"
+                app:ccp_defaultNameCode="IN"
+                app:ccp_showArrow="true"
+                app:ccp_showFlag="true"
+                app:ccp_showFullName="false"
+                app:ccp_showNameCode="false"
+                app:ccp_showPhoneCode="true"
+                app:ccp_textGravity="CENTER"
+                app:ccp_textSize="20sp">
+
+            </com.hbb20.CountryCodePicker>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/introActivityPhoneLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/introActivityUsernameLayout"
+                android:layout_marginTop="50dp"
+                android:layout_toEndOf="@+id/introActivityCCP"
+                android:layout_toRightOf="@+id/introActivityCCP"
+                android:paddingLeft="5dp"
+                android:paddingRight="10dp"
+                android:visibility="visible">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/introActivityPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/phone"
+                    android:inputType="number"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/colorAccent" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/introActivityAddressLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/introActivityPhoneLayout"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="-402dp"
+                android:layout_toStartOf="@+id/imageView"
+                android:layout_toLeftOf="@+id/imageView">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/introAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/address"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/colorAccent" />
+            </android.support.design.widget.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/introActivityPhoneLayout"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="70dp"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_my_location_black_24dp" />
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+
+</RelativeLayout>

@@ -141,7 +141,7 @@ public class startActivity extends AppCompatActivity {
         userInfo.put("Email",currentUser.getEmail());
         userInfo.put("UID",UID);
         userInfo.put("DeviceToken",deviceToken);
-        userInfo.put("ProifleImage","default");
+        userInfo.put("ProfileImage","default");
         userInfo.put("AccessCode","0");
         dbRef.setValue(userInfo);
 
