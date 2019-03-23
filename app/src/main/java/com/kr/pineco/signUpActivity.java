@@ -65,14 +65,14 @@ public class signUpActivity extends AppCompatActivity {
             public void onClick(View view) {
                 username = signUpUsername.getText().toString();
                 password = signUpPassword.getText().toString();
-                email = signUpPassword.getText().toString();
+                email = signUpEmail.getText().toString();
 
                 username = username.trim();
                 password = password.trim();
                 email = email.trim();
 
                 signUpProgressDialog.setTitle("Registering User");
-                signUpProgressDialog.setMessage("Please wait while you are registered...");
+                signUpProgressDialog.setMessage("Gathering fruits...");
                 signUpProgressDialog.setCancelable(false);
                 signUpProgressDialog.show();
 
@@ -88,7 +88,7 @@ public class signUpActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    public void onComplete(@NonNull final Task<AuthResult> task) {
 
                         signUpProgressDialog.dismiss();
                         if (task.isSuccessful()) {
@@ -109,6 +109,7 @@ public class signUpActivity extends AppCompatActivity {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Toast.makeText(signUpActivity.this,"Invalid Email ID Entered!",Toast.LENGTH_SHORT).show();
+
                                     currentUser.delete();
                                 }
                             });
@@ -117,7 +118,7 @@ public class signUpActivity extends AppCompatActivity {
 
 
                         } else {
-                            Log.d("FAILED",task.toString());
+                            Log.d("FAILURE123",task.getException().getMessage());
                             Toast.makeText(signUpActivity.this, "Registration failed!",
                                     Toast.LENGTH_LONG).show();
                             signUpProgressDialog.hide();
@@ -141,6 +142,7 @@ public class signUpActivity extends AppCompatActivity {
         userInfo.put("UID",UID);
         userInfo.put("DeviceToken",deviceToken);
         userInfo.put("ProifleImage","default");
+        userInfo.put("AccessCode","0");
         dbRef.setValue(userInfo);
 
 

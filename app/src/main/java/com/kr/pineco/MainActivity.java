@@ -2,7 +2,12 @@ package com.kr.pineco;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -12,6 +17,10 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
+
+    Toolbar mainActivityToolbar;
+    DrawerLayout mainActivityDrawerLayout;
+    NavigationView mainActivityNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,9 +29,40 @@ public class MainActivity extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         currentUser= mAuth.getCurrentUser();
 
+        mainActivityToolbar=findViewById(R.id.mainActivityToolbar);
+        setSupportActionBar(mainActivityToolbar);
+        getSupportActionBar().setTitle("Pineco");
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.default_menu_icon);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mainActivityDrawerLayout=findViewById(R.id.mainActivityDrawerLayout);
+
+        mainActivityNavigationView = findViewById(R.id.mainActivityNavigationView);
+        mainActivityNavigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                        mainActivityDrawerLayout.closeDrawers();
+
+                        switch (menuItem.getItemId()) {
+                            case R.id.mainActivitySignOut:
+                                mAuth.signOut();
+                                currentUser.delete();
+                                sendToStart();
+                                return true;
+                        }
+
+                        return true;
+                    }
+                });
+
         if(currentUser==null || !currentUser.isEmailVerified()){
            sendToStart();
         }else{
+
+
+
 
         }
 
@@ -32,6 +72,18 @@ public class MainActivity extends AppCompatActivity {
         Intent startActivityIntent=new Intent(MainActivity.this,startActivity.class);
         startActivity(startActivityIntent);
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mainActivityDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

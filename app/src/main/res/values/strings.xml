@@ -9,4 +9,8 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
+    <string name="just_steps_away_from_fresh_fruits">Just steps away from Fresh Fruits!</string>
+    <string name="login">Login</string>
+    <string name="fresh_fruits_at_your_doorstep">Fresh fruits at your doorstep!</string>
+    <string name="sign_out">Sign Out</string>
 </resources>
