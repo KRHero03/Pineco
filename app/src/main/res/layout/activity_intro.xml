@@ -8,7 +8,7 @@
 
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/introActivityToolbar"
+        android:id="@+id/introToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
@@ -16,17 +16,17 @@
         android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <ScrollView
-        android:id="@+id/introActivityScrollView"
+        android:id="@+id/introScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/introActivityRelativeLayout"
+            android:id="@+id/introRelativeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/introActivityTextView"
+                android:id="@+id/introTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
@@ -36,16 +36,16 @@
                 android:textSize="24sp" />
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/introActivityUsernameLayout"
+                android:id="@+id/introUsernameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/introActivityTextView"
+                android:layout_below="@+id/introTextView"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="10dp">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/introActivityUsername"
+                    android:id="@+id/introUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -55,10 +55,10 @@
             </android.support.design.widget.TextInputLayout>
 
             <com.hbb20.CountryCodePicker
-                android:id="@+id/introActivityCCP"
+                android:id="@+id/introCCP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/introActivityUsernameLayout"
+                android:layout_below="@+id/introUsernameLayout"
                 android:layout_marginTop="60dp"
                 android:paddingLeft="10dp"
                 app:ccpDialog_textColor="@color/colorAccent"
@@ -84,19 +84,19 @@
             </com.hbb20.CountryCodePicker>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/introActivityPhoneLayout"
+                android:id="@+id/introPhoneLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/introActivityUsernameLayout"
+                android:layout_below="@+id/introUsernameLayout"
                 android:layout_marginTop="50dp"
-                android:layout_toEndOf="@+id/introActivityCCP"
-                android:layout_toRightOf="@+id/introActivityCCP"
+                android:layout_toEndOf="@+id/introCCP"
+                android:layout_toRightOf="@+id/introCCP"
                 android:paddingLeft="5dp"
                 android:paddingRight="10dp"
                 android:visibility="visible">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/introActivityPhone"
+                    android:id="@+id/introPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/phone"
@@ -110,12 +110,8 @@
                 android:id="@+id/introActivityAddressLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/introActivityPhoneLayout"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="-402dp"
-                android:layout_toStartOf="@+id/imageView"
-                android:layout_toLeftOf="@+id/imageView">
+                android:layout_below="@+id/introPhoneLayout"
+                android:layout_marginTop="50dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/introAddress"
@@ -125,18 +121,30 @@
                     android:hint="@string/address"
                     android:inputType="textMultiLine"
                     android:textColor="@color/colorAccent" />
+
+                <ImageButton
+                    android:id="@+id/introGetLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@android:color/transparent"
+                    android:padding="2dp"
+                    app:srcCompat="@drawable/ic_my_location_black_24dp"
+                    android:contentDescription="TODO" />
             </android.support.design.widget.TextInputLayout>
 
-            <ImageButton
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/introSave"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/introActivityPhoneLayout"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="70dp"
-                android:layout_marginRight="10dp"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/ic_my_location_black_24dp" />
+                android:layout_below="@+id/introActivityAddressLayout"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorButton"
+                android:text="@string/save"
+                android:textColor="@color/colorWhite" />
+
         </RelativeLayout>
     </ScrollView>
 

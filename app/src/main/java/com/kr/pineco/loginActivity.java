@@ -62,7 +62,7 @@ public class loginActivity extends AppCompatActivity {
                 mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        loginProgressDialog.hide();
+                        loginProgressDialog.dismiss();
                         if(task.isSuccessful()){
                             Intent mainActivityIntent=new Intent(loginActivity.this,MainActivity.class);
                             startActivity(mainActivityIntent);

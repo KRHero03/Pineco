@@ -8,6 +8,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,11 +69,14 @@ public class MainActivity extends AppCompatActivity {
         }else{
             DatabaseReference accessCodeRef= FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid()).child("AccessCode");
 
+
             accessCodeRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                     String accessCode=dataSnapshot.getValue().toString();
                     switch(accessCode){
+
                         case "0":
                             Intent introActivityIntent=new Intent(MainActivity.this,introActivity.class);
                             startActivity(introActivityIntent);
@@ -80,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                         case "1":
                             break;
                     }
+                    Log.d("RUNTEST","This ran "+accessCode+" "+dataSnapshot.getValue().toString());
                 }
 
                 @Override
