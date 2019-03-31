@@ -107,7 +107,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/introActivityAddressLayout"
+                android:id="@+id/introAddressLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/introPhoneLayout"
@@ -131,7 +131,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@android:color/transparent"
                     android:padding="2dp"
-                    app:srcCompat="@drawable/ic_my_location_black_24dp"
+                    app:srcCompat="@drawable/ic_my_location"
                     android:contentDescription="TODO" />
             </android.support.design.widget.TextInputLayout>
 
@@ -139,7 +139,7 @@
                 android:id="@+id/introSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/introActivityAddressLayout"
+                android:layout_below="@+id/introAddressLayout"
                 android:layout_marginTop="20dp"
                 android:background="@color/colorButton"
                 android:text="@string/save"

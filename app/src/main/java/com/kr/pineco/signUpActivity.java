@@ -33,9 +33,9 @@ public class signUpActivity extends AppCompatActivity {
     DatabaseReference dbRef;
     Toolbar signUpActivityToolbar;
     Button signUpRegister;
-    EditText signUpUsername,signUpPassword,signUpEmail;
+    EditText signUpPassword,signUpEmail;
     //CountryCodePicker signUpCCP;
-    String username,email,password,UID,deviceToken;
+    String email,password,UID,deviceToken;
     ProgressDialog signUpProgressDialog;
 
     @Override
@@ -49,7 +49,6 @@ public class signUpActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         signUpRegister = findViewById(R.id.signUpRegister);
-        signUpUsername=findViewById(R.id.signUpUsername);
         signUpPassword=findViewById(R.id.signUpPassword);
         signUpEmail=findViewById(R.id.signUpEmail);
         //signUpCCP = findViewById(R.id.signUpCCP);
@@ -63,11 +62,8 @@ public class signUpActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                username = signUpUsername.getText().toString();
                 password = signUpPassword.getText().toString();
                 email = signUpEmail.getText().toString();
-
-                username = username.trim();
                 password = password.trim();
                 email = email.trim();
 
@@ -76,14 +72,14 @@ public class signUpActivity extends AppCompatActivity {
                 signUpProgressDialog.setCancelable(false);
                 signUpProgressDialog.show();
 
-                createUser(email,password,username);
+                createUser(email,password);
 
             }
         });
     }
 
 
-    private void createUser(String email, String password, final String username){
+    private void createUser(String email, String password){
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -98,8 +94,8 @@ public class signUpActivity extends AppCompatActivity {
                             currentUser.sendEmailVerification().addOnSuccessListener(signUpActivity.this, new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    setDBValue(username);
-                                    Toast.makeText(signUpActivity.this,"Please verify your email before Logging in!",Toast.LENGTH_SHORT).show();
+                                    setDBValue();
+                                    Toast.makeText(signUpActivity.this,"Account Successfully Created! Please verify your email before Logging in!",Toast.LENGTH_LONG).show();
                                     Intent loginActivityIntent=new Intent(signUpActivity.this,MainActivity.class);
                                     loginActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(loginActivityIntent);
@@ -131,13 +127,12 @@ public class signUpActivity extends AppCompatActivity {
                 });
     }
 
-    private void setDBValue(String Username){
+    private void setDBValue(){
         currentUser=FirebaseAuth.getInstance().getCurrentUser();
         UID=currentUser.getUid();
         dbRef= FirebaseDatabase.getInstance().getReference().child("Users").child(UID);
         deviceToken=FirebaseInstanceId.getInstance().getToken();
         HashMap<String,String> userInfo=new HashMap<>();
-        userInfo.put("Username",Username);
         userInfo.put("Email",email);
         userInfo.put("UID",UID);
         userInfo.put("DeviceToken",deviceToken);

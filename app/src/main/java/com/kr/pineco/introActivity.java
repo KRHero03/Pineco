@@ -10,37 +10,39 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
+
+import java.util.concurrent.TimeUnit;
 
 public class introActivity extends AppCompatActivity {
     FirebaseUser currentUser;
 
     AppLocationService appLocationService;
 
-    TextInputLayout introPhoneLayout;
+    TextInputLayout introPhoneLayout,introUsernameLayout,introAddressLayout;
     EditText introUsername, introAddress, introPhone;
     DatabaseReference dbRef;
     String username, address, phone;
+    String verificationCode;
     ImageButton introGetLocation;
     Button introSave;
     CountryCodePicker introCCP;
@@ -64,8 +66,13 @@ public class introActivity extends AppCompatActivity {
         introPhone = findViewById(R.id.introPhone);
         introCCP = findViewById(R.id.introCCP);
         introAddress = findViewById(R.id.introAddress);
-        introGetLocation = findViewById(R.id.introGetLocation);
+
+
+        introUsernameLayout=findViewById(R.id.introUsernameLayout);
+        introAddressLayout=findViewById(R.id.introAddressLayout);
         introPhoneLayout=findViewById(R.id.introPhoneLayout);
+
+        introGetLocation = findViewById(R.id.introGetLocation);
         introSave=findViewById(R.id.introSave);
 
         introGetLocation.setOnClickListener(new View.OnClickListener(){
@@ -75,7 +82,6 @@ public class introActivity extends AppCompatActivity {
                 getLocation();
             }
         });
-        getUserDetails();
 
         introPhone.addTextChangedListener(new TextWatcher() {
             @Override
@@ -104,6 +110,61 @@ public class introActivity extends AppCompatActivity {
 
             }
         });
+        introUsername.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence.length()==0){
+                    introUsername.setTextColor(Color.RED);
+                    introUsernameLayout.setErrorEnabled(true);
+                    introUsernameLayout.setError("Enter valid Username!");
+                    introPhoneLayout.setErrorTextAppearance(R.style.TextInputError);
+                }else{
+
+                    introUsername.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    introUsernameLayout.setErrorEnabled(false);
+                    introUsernameLayout.setError("");
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        introAddress.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence.length()<=6){
+                    introAddress.setTextColor(Color.RED);
+                    introAddressLayout.setErrorEnabled(true);
+                    introAddressLayout.setError("Enter valid Username!");
+                    introAddressLayout.setErrorTextAppearance(R.style.TextInputError);
+                }else{
+
+                    introAddress.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    introAddressLayout.setErrorEnabled(false);
+                    introAddressLayout.setError("");
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
 
         introSave.setOnClickListener(new View.OnClickListener(){
 
@@ -115,11 +176,49 @@ public class introActivity extends AppCompatActivity {
 
     }
     private void verifyPhone(){
-        if(introPhoneLayout.isErrorEnabled()){
+
+        username=introUsername.getText().toString();
+        address=introAddress.getText().toString();
+        phone=introPhone.getText().toString();
+        Log.d("This Ran","IntroActivity Button Clicked!");
+        if(username.isEmpty()||address.isEmpty()||phone.isEmpty()||username.length()==0||address.length()<=6||phone.length()!=10){
             Toast.makeText(introActivity.this,"Please enter valid Phone Number!",Toast.LENGTH_SHORT);
         }else{
-
+            phone="+"+introCCP.getSelectedCountryCode()+phone;
+            Log.d("This ran",phone);
+            sendPhoneVerification();
         }
+    }
+
+    private void sendPhoneVerification() {
+        PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+
+            @Override
+            public void onVerificationFailed(FirebaseException e) {
+                Log.d("This ran",e.getMessage());
+            }
+
+            @Override
+            public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+                Log.d("VerificationSuccess","Verification Automatically Done"+phoneAuthCredential.getSmsCode());
+            }
+
+            @Override
+            public void onCodeSent(String verificationId,
+                                   PhoneAuthProvider.ForceResendingToken token) {
+                verificationCode=verificationId;
+                Log.d("VerificationCode",verificationId);
+            }
+        };
+        Log.d("This Ran!","Verification Code Sent!");
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phone,
+                60,
+                TimeUnit.SECONDS,
+                this,
+                mCallbacks);
+
     }
 
     private void getLocation(){
@@ -138,24 +237,7 @@ public class introActivity extends AppCompatActivity {
         }
     }
 
-    private void getUserDetails(){
-        dbRef= FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid()).child("Username");
-        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                username=dataSnapshot.getValue().toString();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        if(!(username==null)){
-            introUsername.setText(username);
-            introUsername.setEnabled(false);
-        }
-    }
 
     public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(

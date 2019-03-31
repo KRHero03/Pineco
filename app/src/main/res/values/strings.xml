@@ -4,11 +4,13 @@
     <string name="please_enter_your_phone_number_to_continue">Please enter your Phone Number to Continue</string>
     <string name="submit">Submit</string>
     <string name="sign_up">Sign Up</string>
-    <string name="please_enter_your_details_to_continue">Please enter your details to Continue</string>
+    <string name="signUpTextView">Create an Account</string>
     <string name="register">Register</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
+    <string name="fruit">Fruit</string>
+    <string name="fruit_description">Fruit Description</string>
     <string name="just_steps_away_from_fresh_fruits">Just steps away from Fresh Fruits!</string>
     <string name="login">Login</string>
     <string name="fresh_fruits_at_your_doorstep">Fresh fruits at your doorstep!</string>
@@ -16,4 +18,6 @@
     <string name="making_sure_you_are_ready_to_go">Making sure you are Ready to go!</string>
     <string name="address">Address</string>
     <string name="save">Save</string>
+    <string name="fruit_validity">Fruit Validity</string>
+    <string name="fruit_cost">Fruit Cost</string>
 </resources>

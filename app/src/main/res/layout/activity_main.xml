@@ -11,7 +11,9 @@
         android:id="@+id/mainActivityFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <android.support.v7.widget.Toolbar
             android:id="@+id/mainActivityToolbar"
             android:layout_width="match_parent"
@@ -19,16 +21,25 @@
             android:background="@color/colorAccent"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mainActivityRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/mainActivityToolbar"
+                android:layout_marginTop="0dp" />
+        </RelativeLayout>
     </FrameLayout>
 
-    <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <android.support.design.widget.NavigationView
         android:id="@+id/mainActivityNavigationView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:menu="@menu/main_activity_drawer_menu" />
+        app:menu="@menu/main_activity_drawer_menu" >
+
+    </android.support.design.widget.NavigationView>
 
 
 </android.support.v4.widget.DrawerLayout>
