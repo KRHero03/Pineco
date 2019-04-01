@@ -7,13 +7,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".Pineco"
         android:allowBackup="true"
-        android:icon="@drawable/default_menu_icon"
+        android:icon="@mipmap/default_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/default_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".introActivity"></activity>
+        <activity android:name=".fruitInfoActivity"></activity>
+        <activity android:name=".introActivity" />
         <activity android:name=".profileActivity" />
         <activity android:name=".loginActivity" />
         <activity android:name=".startActivity" />

@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         mainActivityRecyclerView.setAdapter(fruitAdapter);
 
         if(currentUser==null || !currentUser.isEmailVerified()){
-           sendToStart();
+            sendToStart();
         }else{
 
             accessCodeRef= FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid()).child("AccessCode");
@@ -122,6 +122,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
     private void sendToStart(){
         Intent startActivityIntent=new Intent(MainActivity.this,startActivity.class);
         startActivity(startActivityIntent);
@@ -136,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(final DataSnapshot fruitSnapshot: dataSnapshot.getChildren()) {
-                    Log.d("FruitValues", fruitSnapshot.toString());
                     String fruitID, fruitName, fruitDescription, fruitCost, fruitValidity, fruitImage;
 
                     fruitID = fruitSnapshot.getKey();
@@ -166,10 +171,21 @@ public class MainActivity extends AppCompatActivity {
                 mainActivityDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
 
+            case R.id.mainActivityCart:
+
+                return true;
+
 
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_activity_menu,menu);
+
+        return true;
+    }
 
 }

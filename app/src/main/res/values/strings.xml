@@ -20,4 +20,6 @@
     <string name="save">Save</string>
     <string name="fruit_validity">Fruit Validity</string>
     <string name="fruit_cost">Fruit Cost</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="quantity">Quantity</string>
 </resources>

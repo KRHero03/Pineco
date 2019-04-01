@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fruitInfoActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/fruitInfoToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <ScrollView
+        android:id="@+id/fruitInfoScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/fruitInfoToolbar"
+        android:layout_marginTop="0dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/fruitInfoFruitName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center_horizontal"
+                android:text="@string/fruit"
+                android:textColor="@color/colorAccent"
+                android:textSize="24sp" />
+
+            <com.github.siyamed.shapeimageview.CircularImageView
+
+                android:id="@+id/fruitInfoFruitImage"
+                siBorderColor="@color/colorPrimary"
+                siBorderType="stroke"
+                siBorderWidth="2dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/fruitInfoFruitName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                app:siBorderColor="@color/colorPrimary"
+                app:siBorderType="stroke"
+                app:siBorderWidth="2dp"
+                app:srcCompat="@mipmap/default_fruit_image" />
+
+            <TextView
+                android:id="@+id/fruitInfoFruitCost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fruitInfoFruitImage"
+                android:layout_marginTop="0dp"
+                android:paddingLeft="10dp"
+                android:text="@string/fruit_cost"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/fruitInfoFruitValidity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/fruitInfoFruitCost"
+                android:layout_marginTop="0dp"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:text="@string/fruit_validity"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/fruitInfoFruitDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fruitInfoFruitValidity"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="@string/fruit_description"
+                android:textColor="@color/colorTempText"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:id="@+id/fruitOrderRelativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fruitInfoFruitDescription"
+                android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/fruitInfoQuantityRelativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <ImageButton
+                        android:id="@+id/fruitInfoAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/fruitInfoKGText"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/arrow_right" />
+
+                    <ImageButton
+                        android:id="@+id/fruitInfoSubtract"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_toStartOf="@+id/fruitInfoQuantityText"
+                        android:layout_toLeftOf="@+id/fruitInfoQuantityText"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/arrow_left" />
+
+                    <TextView
+                    android:id="@+id/fruitInfoQuantityText"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="false"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal"
+                    android:text="@string/quantity"
+                    android:textColor="@color/colorTempText"
+                    android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/fruitInfoFinalCost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/fruitInfoQuantityText"
+                        android:layout_centerInParent="false"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/quantity"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/fruitInfoKGText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="0dp"
+                        android:layout_toRightOf="@+id/fruitInfoQuantityText"
+                        android:gravity="center_horizontal"
+                        android:text="KG"
+                        android:textColor="@color/colorTempText"
+                        android:textSize="15sp" />
+
+                </RelativeLayout>
+
+
+                <Button
+                    android:id="@+id/fruitInfoAddToCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fruitInfoQuantityRelativeLayout"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/colorPrimary"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/add_to_cart"
+                    android:textColor="@color/colorWhite" />
+
+                <Button
+                    android:id="@+id/fruitInfoRemoveFromCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fruitInfoQuantityRelativeLayout"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorPrimary"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Remove from Cart"
+                    android:textColor="@color/colorWhite" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
