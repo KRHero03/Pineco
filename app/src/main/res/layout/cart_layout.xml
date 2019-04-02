@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/cartFruitRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/cartFruitName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/cartFruitImage"
+            android:layout_toRightOf="@+id/cartFruitImage"
+            android:text="@string/fruit"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/cartFruitValidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="14dp"
+            android:layout_toEndOf="@+id/cartFruitName"
+            android:layout_toRightOf="@+id/cartFruitName"
+            android:text="@string/fruit_validity"
+            android:textColor="@color/colorTempText"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/cartFruitCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cartFruitImage"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/fruit_cost"
+            android:textColor="@color/colorTempText"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/cartFruitFinalCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cartFruitImage"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/fruit_cost"
+            android:textColor="@color/colorAccent"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/cartFruitQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cartFruitImage"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toStartOf="@+id/cartFruitFinalCost"
+            android:layout_toLeftOf="@+id/cartFruitFinalCost"
+            android:gravity="center_horizontal"
+            android:text="@string/quantity"
+            android:textColor="@color/colorAccent"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/cartFruitDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cartFruitName"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/cartFruitImage"
+            android:layout_toRightOf="@+id/cartFruitName"
+            android:text="@string/fruit_description"
+            android:textColor="@color/colorTempText"
+            android:textSize="15sp" />
+
+        <com.github.siyamed.shapeimageview.CircularImageView
+
+            android:id="@+id/cartFruitImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/default_fruit_image"
+            app:siBorderColor="@color/colorAccent"
+            app:siBorderType="stroke"
+            app:siBorderWidth="2dp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

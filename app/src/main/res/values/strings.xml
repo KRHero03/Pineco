@@ -22,4 +22,12 @@
     <string name="fruit_cost">Fruit Cost</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="quantity">Quantity</string>
+    <string name="place_order">Place Order</string>
+    <string name="total">Total</string>
+    <string name="discount">Discount</string>
+    <string name="delivery_charges">Delivery Charges</string>
+    <string name="grand_total">Grand Total</string>
+    <string name="promotion_applied">Promotions Applied! </string>
+    <string name="promotions">Promotions</string>
+    <string name="looks_like_you_got_nothing_in_the_cart_yet">Looks like you got nothing in the cart yet...</string>
 </resources>

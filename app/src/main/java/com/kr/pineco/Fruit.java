@@ -7,6 +7,7 @@ public class Fruit {
     private String cost;
     private String image;
     private String validity;
+    private String quantity=null;
 
     public Fruit(String fruitUID,String name,String description, String cost,String image,String validity){
         this.fruitUID=fruitUID;
@@ -15,6 +16,14 @@ public class Fruit {
         this.cost=cost;
         this.image=image;
         this.validity=validity;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
     public String getFruitUID() {

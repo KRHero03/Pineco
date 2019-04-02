@@ -172,7 +172,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.mainActivityCart:
-
+                Intent cartActivityIntent=new Intent(MainActivity.this,cartActivity.class);
+                startActivity(cartActivityIntent);
                 return true;
 
 

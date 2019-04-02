@@ -115,6 +115,10 @@ public class fruitAdapter extends RecyclerView.Adapter {
                 }
             });
 
+            if(i%2==0){
+                fruitRelativeLayout.setBackgroundColor(context.getResources().getColor(R.color.colorBackgroundLight));
+            }
+
             fruitRelativeLayout.setOnClickListener(new View.OnClickListener(){
 
                 @Override

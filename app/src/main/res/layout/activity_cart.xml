@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".cartActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/cartToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/cartPlaceOrder"
+        android:layout_below="@+id/cartToolbar"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp">
+
+        <RelativeLayout
+            android:id="@+id/cartPrimaryRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:id="@+id/cartSecondaryRelativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/cartRecylerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <Button
+                    android:id="@+id/cartPromotion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cartRecylerView"
+                    android:layout_centerHorizontal="false"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/round_rectangle_btn"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/promotions"
+                    android:textColor="@color/colorWhite" />
+
+                <Button
+                    android:id="@+id/cartRemovePromotion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cartRecylerView"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/round_rectangle_btn"
+                    android:text="@string/promotion_applied"
+                    android:textColor="@color/colorWhite"
+                    android:visibility="gone" />
+
+                <RelativeLayout
+                    android:id="@+id/cartOrderRelativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cartRecylerView"
+                    android:layout_marginTop="70dp">
+
+                    <TextView
+                        android:id="@+id/cartTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/total"
+                        android:textColor="@color/colorTempText" />
+
+                    <TextView
+                        android:id="@+id/cartTotalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/total"
+                        android:textColor="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/cartDiscount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cartTotal"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/discount"
+                        android:textColor="@color/colorTempText" />
+
+                    <TextView
+                        android:id="@+id/cartDiscountText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cartTotalText"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/discount"
+                        android:textColor="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/cartDelivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cartDiscount"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/delivery_charges"
+                        android:textColor="@color/colorTempText" />
+
+                    <TextView
+                        android:id="@+id/cartDeliveryText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cartDiscountText"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/delivery_charges"
+                        android:textColor="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/cartGrandTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cartDelivery"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/grand_total"
+                        android:textColor="@color/colorTempText" />
+
+                    <TextView
+                        android:id="@+id/cartGrandTotalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cartDeliveryText"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/grand_total"
+                        android:textColor="@color/colorAccent" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/cartSecondaryRelativeLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/cartGetSomething"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/looks_like_you_got_nothing_in_the_cart_yet"
+                    android:textColor="@color/colorTempText"
+                    android:textSize="24sp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/cartPlaceOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent"
+        android:text="@string/place_order"
+        android:textColor="@color/colorWhite" />
+
+</RelativeLayout>

@@ -9,4 +9,5 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTint">#963942C5</color>
     <color name="colorRed">#FF0000</color>
+    <color name="colorBackgroundLight">#E3E4F3</color>
 </resources>

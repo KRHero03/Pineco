@@ -4,7 +4,8 @@
     android:id="@+id/fruitRelativeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="10dp">
 
     <TextView
         android:id="@+id/fruitName"
@@ -59,9 +60,6 @@
     <com.github.siyamed.shapeimageview.CircularImageView
 
         android:id="@+id/fruitImage"
-        siBorderColor="@color/colorPrimary"
-        siBorderType="stroke"
-        siBorderWidth="2dp"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
@@ -80,8 +78,8 @@
         android:layout_marginTop="9dp"
         android:layout_marginRight="10dp"
         android:background="@android:color/transparent"
-        app:srcCompat="@drawable/drop_down"
-        android:contentDescription="TODO" />
+        android:contentDescription="TODO"
+        app:srcCompat="@drawable/drop_down" />
 
     <RelativeLayout
         android:id="@+id/fruitOrderRelativeLayout"
@@ -155,7 +153,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/round_rectangle_btn"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="@string/add_to_cart"
@@ -168,7 +166,7 @@
             android:layout_below="@+id/fruitInfoQuantity"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/round_rectangle_btn"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="Remove from Cart"
