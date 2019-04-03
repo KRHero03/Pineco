@@ -10,5 +10,8 @@
 
     <style name="TextInputError" parent="@android:style/TextAppearance">
     <item name="android:textColor">@color/colorRed</item>
-</style>
+    </style>
+
+    =
+
 </resources>

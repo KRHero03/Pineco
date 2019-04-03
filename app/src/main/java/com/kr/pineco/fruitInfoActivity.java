@@ -86,8 +86,6 @@ public class fruitInfoActivity extends AppCompatActivity {
         fruitDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                Log.d("fruitInfoActivityLog","This ran!");
                 fruitName=dataSnapshot.child("Name").getValue().toString();
                 fruitDescription=dataSnapshot.child("Description").getValue().toString();
                 fruitCost=dataSnapshot.child("Cost").getValue().toString();

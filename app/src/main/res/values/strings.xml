@@ -30,4 +30,6 @@
     <string name="promotion_applied">Promotions Applied! </string>
     <string name="promotions">Promotions</string>
     <string name="looks_like_you_got_nothing_in_the_cart_yet">Looks like you got nothing in the cart yet...</string>
+    <string name="estimated_delivery">Estimated Delivery</string>
+    <string name="paymenttype">PaymentType</string>
 </resources>

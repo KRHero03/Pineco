@@ -41,7 +41,7 @@ public class introActivity extends AppCompatActivity {
     TextInputLayout introPhoneLayout,introUsernameLayout,introAddressLayout;
     EditText introUsername, introAddress, introPhone;
     DatabaseReference dbRef;
-    String username, address, phone;
+    String username="", address="", phone="";
     String verificationCode;
     ImageButton introGetLocation;
     Button introSave;
@@ -148,7 +148,7 @@ public class introActivity extends AppCompatActivity {
                 if(charSequence.length()<=6){
                     introAddress.setTextColor(Color.RED);
                     introAddressLayout.setErrorEnabled(true);
-                    introAddressLayout.setError("Enter valid Username!");
+                    introAddressLayout.setError("Enter valid Address!");
                     introAddressLayout.setErrorTextAppearance(R.style.TextInputError);
                 }else{
 
@@ -180,12 +180,12 @@ public class introActivity extends AppCompatActivity {
         username=introUsername.getText().toString();
         address=introAddress.getText().toString();
         phone=introPhone.getText().toString();
-        Log.d("This Ran","IntroActivity Button Clicked!");
+        Log.d("introActivityError","IntroActivity Button Clicked!");
         if(username.isEmpty()||address.isEmpty()||phone.isEmpty()||username.length()==0||address.length()<=6||phone.length()!=10){
             Toast.makeText(introActivity.this,"Please enter valid Phone Number!",Toast.LENGTH_SHORT);
         }else{
             phone="+"+introCCP.getSelectedCountryCode()+phone;
-            Log.d("This ran",phone);
+            Log.d("introActivityError",phone);
             sendPhoneVerification();
         }
     }
@@ -196,22 +196,21 @@ public class introActivity extends AppCompatActivity {
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
-                Log.d("This ran",e.getMessage());
+                Log.d("introActivityError",e.getMessage());
             }
 
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-                Log.d("VerificationSuccess","Verification Automatically Done"+phoneAuthCredential.getSmsCode());
+                Log.d("introActivityError","Verification Automatically Done"+phoneAuthCredential.getSmsCode());
             }
 
             @Override
             public void onCodeSent(String verificationId,
                                    PhoneAuthProvider.ForceResendingToken token) {
-                verificationCode=verificationId;
-                Log.d("VerificationCode",verificationId);
+                verificationCode=token.toString();
+                Log.d("introActivityError",verificationCode);
             }
         };
-        Log.d("This Ran!","Verification Code Sent!");
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phone,
                 60,
@@ -279,7 +278,8 @@ public class introActivity extends AppCompatActivity {
                     locationAddress = null;
             }
             introAddress.setText(locationAddress);
-            Toast.makeText(introActivity.this,"Your location received!",Toast.LENGTH_SHORT);
+            introAddress.setSelection(introAddress.getText().toString().length()-1);
+            Toast.makeText(introActivity.this,"Your location received!",Toast.LENGTH_SHORT).show();
         }
     }
 }

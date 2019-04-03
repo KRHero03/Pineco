@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/mainActivityOrders"
+        android:title="Your Orders" />
+
+    <item
         android:id="@+id/mainActivitySignOut"
         android:title="@string/sign_out" />
+
+
 </menu>

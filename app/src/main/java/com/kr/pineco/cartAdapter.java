@@ -19,14 +19,15 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class cartAdapter extends RecyclerView.Adapter {
-
+    private final String contextName;
     private final Context context;
     private final ArrayList<Fruit> fruitArray;
 
 
-    public  cartAdapter(Context context,ArrayList<Fruit> fruitArray){
+    public  cartAdapter(Context context,ArrayList<Fruit> fruitArray,String contextName){
         this.context=context;
         this.fruitArray=fruitArray;
+        this.contextName=contextName;
     }
 
 
@@ -61,7 +62,7 @@ public class cartAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
-            cartAdapter.ViewHolder viewholder = (cartAdapter.ViewHolder) viewHolder;
+        cartAdapter.ViewHolder viewholder = (cartAdapter.ViewHolder) viewHolder;
 
         TextView fruitName = viewholder.fruitName;
         TextView fruitDescription = viewholder.fruitDescription;
@@ -94,15 +95,17 @@ public class cartAdapter extends RecyclerView.Adapter {
             }
         });
 
-        fruitRelativeLayout.setOnClickListener(new View.OnClickListener(){
+        if(contextName.equals("cartActivity")) {
+            fruitRelativeLayout.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-                Intent fruitInfoActivityIntent =new Intent(context,fruitInfoActivity.class);
-                fruitInfoActivityIntent.putExtra("FruitUID",fruitArray.get(i).getFruitUID());
-                context.startActivity(fruitInfoActivityIntent);
-            }
-        });
+                @Override
+                public void onClick(View view) {
+                    Intent fruitInfoActivityIntent = new Intent(context, fruitInfoActivity.class);
+                    fruitInfoActivityIntent.putExtra("FruitUID", fruitArray.get(i).getFruitUID());
+                    context.startActivity(fruitInfoActivityIntent);
+                }
+            });
+        }
 
         if(i%2==0){
             fruitRelativeLayout.setBackgroundColor(context.getResources().getColor(R.color.colorBackgroundLight));

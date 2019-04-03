@@ -42,7 +42,7 @@
         android:layout_below="@+id/startActivityTagline"
         android:layout_alignParentBottom="false"
         android:layout_marginTop="150dp"
-        android:background="@color/colorButton"
+        android:background="@color/colorPrimary"
         android:text="@string/login"
         android:textColor="@color/colorWhite"
         android:visibility="visible" />
@@ -55,7 +55,7 @@
         android:layout_marginTop="20dp"
         android:background="@color/colorWhite"
         android:text="@string/sign_up"
-        android:textColor="@color/colorButton" />
+        android:textColor="@color/colorPrimary" />
 
     <ImageButton
         android:id="@+id/startActivityGoogleSignIn"

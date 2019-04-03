@@ -131,8 +131,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@android:color/transparent"
                     android:padding="2dp"
-                    app:srcCompat="@drawable/ic_my_location"
-                    android:contentDescription="TODO" />
+                    app:srcCompat="@drawable/ic_my_location"/>
             </android.support.design.widget.TextInputLayout>
 
             <Button
@@ -141,7 +140,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/introAddressLayout"
                 android:layout_marginTop="20dp"
-                android:background="@color/colorButton"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorPrimary"
                 android:text="@string/save"
                 android:textColor="@color/colorWhite" />
 

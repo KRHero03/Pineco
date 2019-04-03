@@ -68,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
                                 mAuth.signOut();
                                 sendToStart();
                                 return true;
+
+                            case R.id.mainActivityOrders:
+                                Intent ordersActivityIntent =new Intent(MainActivity.this,orderActivity.class);
+                                startActivity(ordersActivityIntent);
+
                         }
 
                         return true;
