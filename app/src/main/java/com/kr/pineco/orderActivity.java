@@ -52,10 +52,11 @@ public class orderActivity extends AppCompatActivity {
         orderRef=FirebaseDatabase.getInstance().getReference().child("Orders").child(currentUser.getUid());
         orderRef.keepSynced(true);
 
-        orderArray.clear();
         orderRef.orderByChild("OrderStatus").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                orderArray.clear();
+                orderAdapter.notifyDataSetChanged();
                 for(DataSnapshot orderDetails: dataSnapshot.getChildren()){
                     String orderUID,orderDelivery,orderDiscount,orderTotal,orderGrandTotal,orderTime,orderPaymentType,orderStatus,orderPromotionCode;
                     final ArrayList<Fruit> fruitArray=new ArrayList<>();
@@ -88,6 +89,7 @@ public class orderActivity extends AppCompatActivity {
                                 Fruit fruitInstance=new Fruit(fruitUID,fruitName,fruitDescription,fruitCost,fruitImage,fruitValidity);
                                 fruitInstance.setQuantity(fruitQuantity);
                                 fruitArray.add(fruitInstance);
+                                orderAdapter.notifyDataSetChanged();
                             }
 
                             @Override

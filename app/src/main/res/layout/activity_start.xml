@@ -4,66 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/default_background"
     tools:context=".startActivity">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"><RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/startActivityTitle"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:background="@color/colorTint"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textColor="@color/colorWhite"
-        android:textSize="36sp" />
+        android:layout_height="match_parent"
+        android:background="@color/colorTempText">
 
-    <TextView
-        android:id="@+id/startActivityTagline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/startActivityTitle"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorTint"
-        android:gravity="center"
-        android:text="@string/fresh_fruits_at_your_doorstep"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/startActivityLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/startActivityTagline"
-        android:layout_alignParentBottom="false"
-        android:layout_marginTop="150dp"
-        android:background="@color/colorPrimary"
-        android:text="@string/login"
-        android:textColor="@color/colorWhite"
-        android:visibility="visible" />
+            <TextView
+                android:id="@+id/startActivityTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorTint"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/colorWhite"
+                android:textSize="36sp" />
 
-    <Button
-        android:id="@+id/startActivitySignUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/startActivityLogin"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorWhite"
-        android:text="@string/sign_up"
-        android:textColor="@color/colorPrimary" />
+            <TextView
+                android:id="@+id/startActivityTagline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/startActivityTitle"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorTint"
+                android:gravity="center"
+                android:text="@string/fresh_fruits_at_your_doorstep"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
 
-    <ImageButton
-        android:id="@+id/startActivityGoogleSignIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/startActivitySignUp"
-        android:layout_marginTop="20dp"
-        android:background="@android:color/transparent"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
-</RelativeLayout></ScrollView>
+            <Button
+                android:id="@+id/startActivityLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/startActivityTagline"
+                android:layout_alignParentBottom="false"
+                android:layout_marginTop="150dp"
+                android:background="@color/colorPrimary"
+                android:text="@string/login"
+                android:textColor="@color/colorWhite"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/startActivitySignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/startActivityLogin"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorWhite"
+                android:text="@string/sign_up"
+                android:textColor="@color/colorPrimary" />
+
+            <ImageButton
+                android:id="@+id/startActivityGoogleSignIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/startActivitySignUp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@mipmap/default_fruit_image" />
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

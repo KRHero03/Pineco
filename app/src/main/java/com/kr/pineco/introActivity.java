@@ -1,6 +1,6 @@
 package com.kr.pineco;
 
-import android.annotation.SuppressLint;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,18 +18,25 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
 
 import java.util.concurrent.TimeUnit;
@@ -46,9 +54,10 @@ public class introActivity extends AppCompatActivity {
     ImageButton introGetLocation;
     Button introSave;
     CountryCodePicker introCCP;
+    String code="";
     Toolbar introToolbar;
 
-    @SuppressLint("MissingPermission")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +66,11 @@ public class introActivity extends AppCompatActivity {
         introToolbar = findViewById(R.id.introToolbar);
         setSupportActionBar(introToolbar);
         getSupportActionBar().setTitle("Fill your Details");
+        if(getIntent().getStringExtra("backAccess").equals("1")){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }else{
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -174,18 +188,78 @@ public class introActivity extends AppCompatActivity {
             }
         });
 
+        getUserData();
+
     }
+    private void getUserData(){
+        dbRef=FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid()).child("Username");
+        dbRef.keepSynced(true);
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try {
+
+                    introUsername.setText(dataSnapshot.getValue().toString());
+                    introUsername.setSelection(introUsername.length());
+                }catch(Exception e){
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        dbRef.getParent().child("Address").addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        try {
+                            introAddress.setText(dataSnapshot.getValue().toString());
+                            introAddress.setSelection(introAddress.length());
+                        }catch(Exception e){
+
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                }
+        );
+
+        dbRef.getParent().child("Phone").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                try {
+                    String phone = dataSnapshot.getValue().toString();
+                    introPhone.setText(phone.substring(phone.length() - 10));
+                    introCCP.setCountryForPhoneCode(Integer.parseInt(phone.substring(0, phone.length() - 11)));
+                    introPhone.setSelection(introPhone.length());
+                }catch (Exception e){
+                    Log.d("introActivityError",e.getMessage()+ " "+currentUser.getUid());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void verifyPhone(){
 
         username=introUsername.getText().toString();
         address=introAddress.getText().toString();
         phone=introPhone.getText().toString();
-        Log.d("introActivityError","IntroActivity Button Clicked!");
         if(username.isEmpty()||address.isEmpty()||phone.isEmpty()||username.length()==0||address.length()<=6||phone.length()!=10){
             Toast.makeText(introActivity.this,"Please enter valid Phone Number!",Toast.LENGTH_SHORT);
         }else{
             phone="+"+introCCP.getSelectedCountryCode()+phone;
-            Log.d("introActivityError",phone);
             sendPhoneVerification();
         }
     }
@@ -196,19 +270,24 @@ public class introActivity extends AppCompatActivity {
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
-                Log.d("introActivityError",e.getMessage());
+                Log.d("introActivityException",e.getMessage());
             }
 
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-                Log.d("introActivityError","Verification Automatically Done"+phoneAuthCredential.getSmsCode());
+
+                code=phoneAuthCredential.getSmsCode();
+
+                verifyUser();
+
+
             }
 
             @Override
             public void onCodeSent(String verificationId,
                                    PhoneAuthProvider.ForceResendingToken token) {
                 verificationCode=token.toString();
-                Log.d("introActivityError",verificationCode);
+                Log.d("introActivityV",verificationCode);
             }
         };
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -218,6 +297,53 @@ public class introActivity extends AppCompatActivity {
                 this,
                 mCallbacks);
 
+    }
+
+    private void verifyUser(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Pineco - Verify OTP");
+        alert.setMessage("Please enter the OTP received");
+        final EditText input = new EditText (this);
+        input.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+        alert.setView(input);
+
+        alert.setPositiveButton("Go", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                verifyOTP(input.getText().toString());
+
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+            }
+        });
+        alert.show();
+    }
+
+
+    private void verifyOTP(String otp){
+        if(otp.equals(code)){
+            dbRef= FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid()).child("Phone");
+            dbRef.setValue(phone);
+
+            dbRef.getParent().child("AccessCode").setValue("1");
+            dbRef.getParent().child("Address").setValue(address);
+            dbRef.getParent().child("Username").setValue(username).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(introActivity.this, "Details saved Successfully!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }
+            });
+
+        }else{
+            Toast.makeText(this,"Invalid OTP!",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void getLocation(){
@@ -249,6 +375,8 @@ public class introActivity extends AppCompatActivity {
                         Intent intent = new Intent(
                                 Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         introActivity.this.startActivity(intent);
+
+
                     }
                 });
         alertDialog.setNegativeButton("Nevermind",
@@ -262,6 +390,12 @@ public class introActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if(getIntent().getStringExtra("backAccess").equals("1")){
+            super.onBackPressed();
+        }else{
+
+        }
+
 
     }
 
@@ -279,8 +413,22 @@ public class introActivity extends AppCompatActivity {
             }
             introAddress.setText(locationAddress);
             introAddress.setSelection(introAddress.getText().toString().length()-1);
-            Toast.makeText(introActivity.this,"Your location received!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(introActivity.this,"Your location has been received!",Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

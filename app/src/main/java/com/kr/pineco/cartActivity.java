@@ -27,7 +27,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class cartActivity extends AppCompatActivity {
     cartAdapter cartAdapter;
 
     double cartTotalS=0.0, cartDiscountS=0.0, cartDeliveryS=10.0, cartGrandTotalS=0.0;
-    String promotionCode="",tempPromoCode;
+    String promotionCode="",tempPromoCode="";
     Toolbar cartToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +64,7 @@ public class cartActivity extends AppCompatActivity {
         cartRef= FirebaseDatabase.getInstance().getReference().child("Cart").child(currentUser.getUid());
         cartRef.keepSynced(true);
 
-        cartSecondaryRelativeLayout=findViewById(R.id.cartPrimaryRelativeLayout);
+        cartSecondaryRelativeLayout=findViewById(R.id.cartSecondaryRelativeLayout);
         cartSecondaryRelativeLayout1=findViewById(R.id.cartSecondaryRelativeLayout1);
 
 
@@ -180,6 +179,7 @@ public class cartActivity extends AppCompatActivity {
                 orderDetails.put("Discount",""+cartDiscountS);
                 orderDetails.put("PaymentType",""+paymentType);
                 orderDetails.put("PromotionCode",promotionCode);
+                orderDetails.put("Time",""+System.currentTimeMillis());
 
                 cartRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -207,19 +207,25 @@ public class cartActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            placeOrderRef.child("Time").setValue(ServerValue.TIMESTAMP);
-                            if(!(promotionCode.isEmpty())){
-                                promoRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            Toast.makeText(cartActivity.this,"Fruits coming your way! Check your orders!",Toast.LENGTH_SHORT).show();
+                                    if (task.isSuccessful()) {
+                                        if (!(tempPromoCode.isEmpty())) {
+
+                                            DatabaseReference promoRef1 = FirebaseDatabase.getInstance().getReference().child("Promotions").child(currentUser.getUid()).child(tempPromoCode);
+                                            promoRef1.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(cartActivity.this, "Fruits coming your way! Check your orders!", Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                    }
+                                                }
+
+                                        });
+                                    }else{
+                                            Toast.makeText(cartActivity.this, "Fruits coming your way! Check your orders!", Toast.LENGTH_SHORT).show();
                                             finish();
                                         }
-                                    }
-                                });
-                            }
-                        }else{
+                                }}else{
                             Toast.makeText(cartActivity.this,"Failed to Place Order!",Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -273,6 +279,7 @@ public class cartActivity extends AppCompatActivity {
                     cartPromotion.setVisibility(View.INVISIBLE);
                     cartRemovePromotion.setVisibility(View.VISIBLE);
                 }else{
+                    tempPromoCode="";
                     Toast.makeText(cartActivity.this,"Promotion Code Invalid!",Toast.LENGTH_SHORT).show();
                 }
             }

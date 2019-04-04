@@ -18,7 +18,6 @@
         <activity android:name=".cartActivity" />
         <activity android:name=".fruitInfoActivity" />
         <activity android:name=".introActivity" />
-        <activity android:name=".profileActivity" />
         <activity android:name=".loginActivity" />
         <activity android:name=".startActivity" />
         <activity android:name=".signUpActivity" />

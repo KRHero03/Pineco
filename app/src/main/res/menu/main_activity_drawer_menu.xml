@@ -6,6 +6,10 @@
         android:title="Your Orders" />
 
     <item
+        android:id="@+id/mainActivityProfile"
+        android:title="Profile" />
+
+    <item
         android:id="@+id/mainActivitySignOut"
         android:title="@string/sign_out" />
 

@@ -12,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar mainActivityToolbar;
     DrawerLayout mainActivityDrawerLayout;
     NavigationView mainActivityNavigationView;
+    TextView drawerUsername, drawerEmail;
 
     String accessCode;
 
@@ -47,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         currentUser= mAuth.getCurrentUser();
 
+
+
         mainActivityToolbar=findViewById(R.id.mainActivityToolbar);
         setSupportActionBar(mainActivityToolbar);
         getSupportActionBar().setTitle("Pineco");
@@ -54,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mainActivityDrawerLayout=findViewById(R.id.mainActivityDrawerLayout);
+        drawerUsername=findViewById(R.id.drawerUsername);
+        drawerEmail=findViewById(R.id.drawerEmail);
 
         mainActivityNavigationView = findViewById(R.id.mainActivityNavigationView);
         mainActivityNavigationView.setNavigationItemSelectedListener(
@@ -72,12 +79,23 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.mainActivityOrders:
                                 Intent ordersActivityIntent =new Intent(MainActivity.this,orderActivity.class);
                                 startActivity(ordersActivityIntent);
+                                return true;
+
+                            case R.id.mainActivityProfile:
+                                Intent introActivityIntent =new Intent(MainActivity.this,introActivity.class);
+                                introActivityIntent.putExtra("backAccess","1");
+                                startActivity(introActivityIntent);
+                                return true;
 
                         }
 
                         return true;
                     }
                 });
+
+        View header = mainActivityNavigationView.getHeaderView(0);
+        drawerEmail = header.findViewById(R.id.drawerEmail);
+        drawerUsername =  header.findViewById(R.id.drawerUsername);
 
 
         mainActivityRecyclerView=findViewById(R.id.mainActivityRecyclerView);
@@ -106,11 +124,33 @@ public class MainActivity extends AppCompatActivity {
 
                         case "0":
                             Intent introActivityIntent=new Intent(MainActivity.this,introActivity.class);
+                            introActivityIntent.putExtra("backAccess","0");
                             startActivity(introActivityIntent);
-                            finish();
                             break;
                         case "1":
                             getFruits();
+                            try{
+                                drawerEmail.setText(currentUser.getEmail());
+                            }catch (Exception e){
+                                drawerEmail.setVisibility(View.INVISIBLE);
+                            }
+
+                            DatabaseReference drawerRef=FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid()).child("Username");
+                            drawerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    try{
+                                        drawerUsername.setText(dataSnapshot.getValue().toString());
+                                    }catch (Exception e){
+                                        drawerUsername.setVisibility(View.INVISIBLE);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
                             break;
                     }
                 }
@@ -132,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
     }
+
+
 
     private void sendToStart(){
         Intent startActivityIntent=new Intent(MainActivity.this,startActivity.class);
