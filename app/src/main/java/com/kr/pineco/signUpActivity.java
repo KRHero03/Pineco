@@ -139,7 +139,8 @@ public class signUpActivity extends AppCompatActivity {
         userInfo.put("ProfileImage","default");
         userInfo.put("AccessCode","0");
         dbRef.setValue(userInfo);
-
+        FirebaseDatabase.getInstance().getReference().child("Promotions").child(currentUser.getUid()).child("FIRST50").setValue("0.5");
+        FirebaseAuth.getInstance().signOut();
 
     }
 
